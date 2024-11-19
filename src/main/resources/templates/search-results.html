@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Search Results</title></head>
+<body>
+<h1>Search Results</h1>
+<ul>
+    <li th:each="petition : ${results}">
+        <a th:href="@{/petitions/{id}(id=${petition.id})}" th:text="${petition.title}"></a>
+    </li>
+</ul>
+
+<a th:href="@{/petitions/home}">Home</a>
+</body>
+</html>

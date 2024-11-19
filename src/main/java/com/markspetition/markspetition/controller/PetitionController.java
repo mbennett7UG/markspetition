@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/petitions")
 public class PetitionController {
@@ -56,8 +58,21 @@ public class PetitionController {
 
         }
         return "redirect:/petitions/" + id;
+    }
+
+    @GetMapping("/search")
+    public String searchPage() {
+        return "search-petition";
+    }
 
 
+    @PostMapping("/search")
+    public String searchPetition(@RequestParam String query, Model model) {
+        List<Petition> results = petitionService.getAllPetitions().stream()
+                .filter(p -> p.getTitle().toLowerCase().contains(query.toLowerCase()))
+                .toList();
+        model.addAttribute("results", results);
+        return "search-results";
     }
 
 

@@ -3,7 +3,7 @@
 <head><title>Create Petition</title></head>
 <body>
 <h1>Create a New Petition</h1>
-<form method="post" action="/petitions/create">
+<form method="post" th:action="@{/petitions/create}">
   <label for="title">Title:</label>
   <input type="text" id="title" name="title" required>
   <br>
