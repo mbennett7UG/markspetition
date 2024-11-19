@@ -4,6 +4,7 @@ import com.markspetition.markspetition.model.Petition;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -29,6 +30,12 @@ public class PetitionService {
 
     public void addPetition(Petition petition) {
         petitions.add(petition);
+    }
+
+    public List<Petition> getLatestThreePetitions() {
+        List<Petition> latest = new ArrayList<>(petitions);
+        Collections.reverse(latest); // Reverse the list to get most recent first
+        return latest.stream().limit(3).toList(); // Return the first 3 items
     }
 
 

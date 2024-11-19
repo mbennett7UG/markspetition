@@ -18,7 +18,8 @@ public class PetitionController {
 
 
     @GetMapping("/home")
-    public String homePage() {
+    public String homePage(Model model) {
+        model.addAttribute("latestPetitions", petitionService.getLatestThreePetitions());
         return "view-petitions";
     }
 

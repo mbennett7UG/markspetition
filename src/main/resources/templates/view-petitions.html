@@ -4,6 +4,13 @@
 <body>
 <h1>Mark's Petitions</h1>
 
+<h3>Recently Added:</h3>
+<ul>
+    <li th:each="petition : ${latestPetitions}">
+        <a th:href="@{/petitions/{id}(id=${petition.id})}" th:text="${petition.title}"></a>
+    </li>
+</ul>
+
 <ul>
     <li><a th:href="@{/petitions/all}">View All Petitions</a></li>
     <li><a th:href="@{/petitions/create}">Create a New Petition</a></li>
