@@ -5,10 +5,7 @@ import com.markspetition.markspetition.service.PetitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/petitions")
@@ -39,6 +36,28 @@ public class PetitionController {
         int newId = petitionService.getAllPetitions().size() + 1;
         petitionService.addPetition(new Petition(newId, title, description));
         return "redirect:/petitions/home";
+    }
+
+    @GetMapping("/{id}")
+    public String viewPetition(@PathVariable int id, Model model) {
+        Petition petition = petitionService.getPetitionById(id);
+        if (petition == null) {
+            return "error";
+        }
+        model.addAttribute("petition", petition);
+        return "view-petition";
+    }
+
+    @PostMapping("/{id}/sign")
+    public String signPetition(@PathVariable int id, @RequestParam String name, @RequestParam String email) {
+        Petition petition = petitionService.getPetitionById(id);
+        if (petition != null) {
+            petition.addSignature(name + " (" + email + ")");
+
+        }
+        return "redirect:/petitions/" + id;
+
+
     }
 
 
